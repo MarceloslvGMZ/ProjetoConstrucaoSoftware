@@ -10,7 +10,7 @@ export enum SituacaoUsuario {
 }
 
 /**
- * Modelo de domínio do Usuário (CU01 – Manter Usuário).
+ * Modelo de domínio do Usuário (CU01 – Manter Usuário / CU02 – Autenticar Usuário).
  */
 export class Usuario {
   id!: string;
@@ -20,6 +20,10 @@ export class Usuario {
   senhaHash!: string;
   funcao!: FuncaoUsuario;
   situacao!: SituacaoUsuario;
+  /** Contador de tentativas incorretas consecutivas (CU02). */
+  tentativasIncorretas!: number;
+  /** Início/fim do bloqueio temporário; null quando não há bloqueio. */
+  bloqueadoAte!: Date | null;
   criadoEm!: Date;
   atualizadoEm!: Date;
 
@@ -30,6 +34,8 @@ export class Usuario {
     senhaHash: string;
     funcao: FuncaoUsuario;
     situacao: SituacaoUsuario;
+    tentativasIncorretas?: number;
+    bloqueadoAte?: Date | null;
     criadoEm: Date;
     atualizadoEm: Date;
   }) {
@@ -39,6 +45,8 @@ export class Usuario {
     this.senhaHash = data.senhaHash;
     this.funcao = data.funcao;
     this.situacao = data.situacao;
+    this.tentativasIncorretas = data.tentativasIncorretas ?? 0;
+    this.bloqueadoAte = data.bloqueadoAte ?? null;
     this.criadoEm = data.criadoEm;
     this.atualizadoEm = data.atualizadoEm;
   }

@@ -2,7 +2,9 @@ import {
   BadRequestException,
   ConflictException,
   Injectable,
+  Logger,
   NotFoundException,
+  OnModuleInit,
 } from '@nestjs/common';
 import { randomBytes, randomUUID, scryptSync, timingSafeEqual } from 'crypto';
 import { CreateUsuarioDto } from '../models/usuario/create-usuario.dto';
@@ -19,8 +21,29 @@ import { UsuarioRepository } from '../repositories/usuario.repository';
  * Camada de negócio do CU01 – Manter Usuário.
  */
 @Injectable()
-export class UsuarioService {
+export class UsuarioService implements OnModuleInit {
+  private readonly logger = new Logger(UsuarioService.name);
+
   constructor(private readonly usuarioRepository: UsuarioRepository) {}
+
+  /**
+   * Seed do Administrador inicial para permitir o primeiro login (CU02)
+   * enquanto a persistência permanece em memória.
+   */
+  async onModuleInit(): Promise<void> {
+    const existentes = await this.usuarioRepository.findAll();
+    if (existentes.length > 0) {
+      return;
+    }
+
+    await this.criar({
+      nome: 'admin',
+      email: 'admin@forros.com',
+      senha: '123456',
+      funcao: FuncaoUsuario.ADMINISTRADOR,
+    });
+    this.logger.log('Administrador inicial criado: admin@forros.com / 123456');
+  }
 
   async criar(dto: CreateUsuarioDto): Promise<UsuarioResponseDto> {
     await this.garantirEmailUnico(dto.email);
