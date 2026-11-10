@@ -16,9 +16,11 @@ async function bootstrap() {
   const swaggerConfig = new DocumentBuilder()
     .setTitle('ForrOS API')
     .setDescription(
-      'Documentação da API do sistema ForrOS. CU01 – Manter Usuário.',
+      'Documentação da API do sistema ForrOS. CU01 – Manter Usuário · CU02 – Autenticar Usuário.',
     )
-    .setVersion('1.0')
+    .setVersion('1.1')
+    .addBearerAuth()
+    .addTag('autenticacao', 'CU02 – Autenticar Usuário')
     .addTag('usuarios', 'CU01 – Manter Usuário')
     .build();
 
