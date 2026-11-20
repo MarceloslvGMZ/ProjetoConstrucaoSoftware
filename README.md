@@ -4,6 +4,8 @@ API do sistema **ForrOS**, com desenvolvimento incremental dos casos de uso:
 
 - **CU01 – Manter Usuário**
 - **CU02 – Autenticar Usuário**
+- **CU06 – Emitir Orçamento**
+- **CU07 – Manter Agenda**
 
 Arquitetura em camadas: Controller → Service → Repository → Model.
 

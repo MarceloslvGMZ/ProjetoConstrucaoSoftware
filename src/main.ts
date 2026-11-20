@@ -16,12 +16,14 @@ async function bootstrap() {
   const swaggerConfig = new DocumentBuilder()
     .setTitle('ForrOS API')
     .setDescription(
-      'Documentação da API do sistema ForrOS. CU01 – Manter Usuário · CU02 – Autenticar Usuário.',
+      'Documentação da API do sistema ForrOS. CU01 – Manter Usuário · CU02 – Autenticar Usuário · CU06 – Emitir Orçamento · CU07 – Manter Agenda.',
     )
     .setVersion('1.1')
     .addBearerAuth()
     .addTag('autenticacao', 'CU02 – Autenticar Usuário')
     .addTag('usuarios', 'CU01 – Manter Usuário')
+    .addTag('orcamentos', 'CU06 – Emitir Orçamento')
+    .addTag('agenda', 'CU07 – Manter Agenda')
     .build();
 
   const document = SwaggerModule.createDocument(app, swaggerConfig);
