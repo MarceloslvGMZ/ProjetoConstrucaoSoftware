@@ -7,6 +7,8 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { RolesGuard } from './auth/roles.guard';
 import { AutenticacaoController } from './controllers/autenticacao.controller';
 import { UsuarioController } from './controllers/usuario.controller';
+import { AgendaModule } from './modules/agenda.module';
+import { OrcamentoModule } from './modules/orcamento.module';
 import { UsuarioRepository } from './repositories/usuario.repository';
 import { AutenticacaoService } from './services/autenticacao.service';
 import { UsuarioService } from './services/usuario.service';
@@ -16,6 +18,8 @@ import { UsuarioService } from './services/usuario.service';
     JwtModule.register({
       secret: AUTH_JWT_SECRET,
     }),
+    OrcamentoModule,
+    AgendaModule,
   ],
   controllers: [AppController, UsuarioController, AutenticacaoController],
   providers: [
